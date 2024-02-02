@@ -12,6 +12,15 @@ import {
 	TableRow,
 } from "@/components/ui/table"
 
+export type Book = {
+	key: string
+	title: string
+	author_name: string
+	first_publish_year: string
+	number_of_pages_median: string
+	status: "done" | "inProgress" | "backlog"
+}
+
 export const BookSearch = () => {
 	const [query, setQuery] = useState("")
 	const [result, setResults] = useState<any[]>([])
@@ -19,7 +28,6 @@ export const BookSearch = () => {
 
 	type SearchResult = {
 		docs: any[]
-		start: number
 		num_found: number
 	}
 
@@ -64,11 +72,32 @@ export const BookSearch = () => {
 				{isLoading ? "Searching" : "Search"}
 			</Button>
 			<div className="mt-4 max-h-64 overflow-auto">
-				<ul>
+				<Table>
+					<TableHeader>
+						<TableRow>
+							<TableHead className="p-2 ">Title</TableHead>
+							<TableHead className="p-2">Author</TableHead>
+							<TableHead className="p-2">Year</TableHead>
+							<TableHead className="p-2">Page Count</TableHead>
+						</TableRow>
+					</TableHeader>
+					<TableBody>
+						{result.map((book, index) => (
+							<TableRow>
+								<TableCell>{book.title}</TableCell>
+								<TableCell>{book.author_name}</TableCell>
+								<TableCell>{book.first_publish_year}</TableCell>
+								<TableCell>{book.number_of_pages_median || "_"}</TableCell>
+							</TableRow>
+						))}
+					</TableBody>
+				</Table>
+
+				{/* <ul>
 					{result.map((book, index) => (
 						<li key={index}>{JSON.stringify(book, null, 2)}</li>
 					))}
-				</ul>
+				</ul> */}
 			</div>
 		</div>
 	)
