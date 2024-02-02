@@ -76,6 +76,9 @@ export const BookSearch = () => {
 		}
 	}
 
+	const startIndex = (currentPage - 1) * resultsPerPage + 1
+	const endIndex = Math.min(startIndex + resultsPerPage - 1, totalResults)
+
 	// JSX structure for rendering the component
 	return (
 		<div className=" p-4">
@@ -96,6 +99,13 @@ export const BookSearch = () => {
 			>
 				{isLoading ? "Searching" : "Search"}
 			</Button>
+			<div className="mt-2">
+				{totalResults > 0 && (
+					<p className="text-sm">
+						Showing {startIndex} - {endIndex} out of {totalResults} results
+					</p>
+				)}
+			</div>
 			<div className="mt-4 max-h-64 overflow-auto">
 				<Table>
 					<TableHeader>
