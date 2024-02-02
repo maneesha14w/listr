@@ -2,6 +2,15 @@ import axios from "axios"
 import React, { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import {
+	Table,
+	TableBody,
+	TableCaption,
+	TableCell,
+	TableHead,
+	TableHeader,
+	TableRow,
+} from "@/components/ui/table"
 
 export const BookSearch = () => {
 	const [query, setQuery] = useState("")
@@ -28,6 +37,13 @@ export const BookSearch = () => {
 		}
 		setIsLoading(false)
 	}
+
+	const handleKeyPress = (event: React.KeyboardEvent) => {
+		if (event.key === "Enter") {
+			searchBooks()
+		}
+	}
+
 	return (
 		<div className=" p-4">
 			<div className="sm:max-w-xs">
@@ -36,12 +52,14 @@ export const BookSearch = () => {
 					value={query}
 					onChange={(e) => setQuery(e.target.value)}
 					placeholder="Search for your next book"
+					onKeyUp={handleKeyPress}
 				/>
 			</div>
 			<Button
 				onClick={() => {
 					searchBooks()
 				}}
+				disabled={isLoading ? true : false}
 			>
 				{isLoading ? "Searching" : "Search"}
 			</Button>
