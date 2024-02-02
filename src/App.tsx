@@ -1,7 +1,12 @@
 import React from "react"
+import { BookSearch } from "./components/BookSearch"
 
 const App = () => {
-	return <div></div>
+	return (
+		<div>
+			<BookSearch />
+		</div>
+	)
 }
 
 export default App
