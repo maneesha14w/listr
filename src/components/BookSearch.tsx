@@ -92,12 +92,6 @@ export const BookSearch = () => {
 						))}
 					</TableBody>
 				</Table>
-
-				{/* <ul>
-					{result.map((book, index) => (
-						<li key={index}>{JSON.stringify(book, null, 2)}</li>
-					))}
-				</ul> */}
 			</div>
 		</div>
 	)
