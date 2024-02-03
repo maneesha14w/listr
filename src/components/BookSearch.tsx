@@ -47,7 +47,9 @@ export const BookSearch = ({
 			// Fetch data from Open Library API using Fetch
 			const response = await fetch(
 				`https://openlibrary.org/search.json?q=${query}&page=${page}&limit=${resultsPerPage}`,
-			).then((response) => response.json())
+			)
+				.then((response) => response.json())
+				.catch((error) => console.error(error))
 			// Set state variables based on API response
 			setResults(response.docs)
 			setTotalResults(response.num_found)
