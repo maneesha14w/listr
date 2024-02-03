@@ -5,7 +5,6 @@ import { Input } from "@/components/ui/input"
 import {
 	Table,
 	TableBody,
-	TableCaption,
 	TableCell,
 	TableHead,
 	TableHeader,
@@ -15,13 +14,17 @@ import {
 export type Book = {
 	key: string
 	title: string
-	author_name: string
+	author_name: string[]
 	first_publish_year: string
-	number_of_pages_median: string
+	number_of_pages_median: string | null
 	status: "done" | "inProgress" | "backlog"
 }
 
-export const BookSearch = () => {
+export const BookSearch = ({
+	onAddBook,
+}: {
+	onAddBook: (book: Book) => void
+}) => {
 	// State variables
 	const [query, setQuery] = useState("")
 	const [result, setResults] = useState<any[]>([])
@@ -114,6 +117,7 @@ export const BookSearch = () => {
 							<TableHead className="p-2">Author</TableHead>
 							<TableHead className="p-2">Year</TableHead>
 							<TableHead className="p-2">Page Count</TableHead>
+							<TableHead className="p-2"></TableHead>
 						</TableRow>
 					</TableHeader>
 					<TableBody>
@@ -123,6 +127,23 @@ export const BookSearch = () => {
 								<TableCell>{book.author_name}</TableCell>
 								<TableCell>{book.first_publish_year}</TableCell>
 								<TableCell>{book.number_of_pages_median || "_"}</TableCell>
+								<TableCell>
+									<Button
+										variant="link"
+										onClick={() => {
+											onAddBook({
+												key: book.key,
+												title: book.title,
+												author_name: book.author_name,
+												first_publish_year: book.first_publish_year,
+												number_of_pages_median: book.number_of_pages_median,
+												status: "backlog",
+											})
+										}}
+									>
+										Add
+									</Button>
+								</TableCell>
 							</TableRow>
 						))}
 					</TableBody>
