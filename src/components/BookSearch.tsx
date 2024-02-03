@@ -1,4 +1,3 @@
-import axios from "axios"
 import React, { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -45,13 +44,13 @@ export const BookSearch = ({
 
 		setIsLoading(true)
 		try {
-			// Fetch data from Open Library API using Axios
-			const response = await axios.get<SearchResult>(
+			// Fetch data from Open Library API using Fetch
+			const response = await fetch(
 				`https://openlibrary.org/search.json?q=${query}&page=${page}&limit=${resultsPerPage}`,
-			)
+			).then((response) => response.json())
 			// Set state variables based on API response
-			setResults(response.data.docs)
-			setTotalResults(response.data.num_found)
+			setResults(response.docs)
+			setTotalResults(response.num_found)
 			setCurrentPage(page)
 		} catch (error) {
 			console.error("Error fetching Open Library Data", error)
