@@ -15,11 +15,16 @@ const App = () => {
 	}, [])
 
 	const addBook = (newBook: Book) => {
-		const updatedBooks = [...books, { ...newBook, status: "backlog" }]
+		const updatedBooks = [
+			...books,
+			{ ...newBook, status: newBook.status as "backlog" },
+		]
 		setBooks(updatedBooks)
 
 		localStorage.setItem("readingList", JSON.stringify(updatedBooks))
 	}
+
+	const moveBook = (book: Book) => {}
 
 	return (
 		<div className="container mx-auto">
