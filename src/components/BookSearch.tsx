@@ -16,7 +16,7 @@ export type Book = {
 	author_name: string[]
 	first_publish_year: string
 	number_of_pages_median: string | null
-	status: "done" | "inProgress" | "backlog"
+	status: "complete" | "reading" | "toRead"
 }
 
 export const BookSearch = ({
@@ -45,7 +45,7 @@ export const BookSearch = ({
 		setIsLoading(true)
 		try {
 			// Fetch data from Open Library API using Fetch
-			const response = await fetch(
+			const response: SearchResult = await fetch(
 				`https://openlibrary.org/search.json?q=${query}&page=${page}&limit=${resultsPerPage}`,
 			)
 				.then((response) => response.json())
@@ -138,7 +138,7 @@ export const BookSearch = ({
 												author_name: book.author_name,
 												first_publish_year: book.first_publish_year,
 												number_of_pages_median: book.number_of_pages_median,
-												status: "backlog",
+												status: "toRead",
 											})
 										}}
 									>
@@ -172,3 +172,4 @@ export const BookSearch = ({
 		</div>
 	)
 }
+

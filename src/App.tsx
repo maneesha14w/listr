@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { Book, BookSearch } from "./components/BookSearch"
 import { BookList } from "./components/BookList"
 
@@ -17,19 +17,26 @@ const App = () => {
 	const addBook = (newBook: Book) => {
 		const updatedBooks = [
 			...books,
-			{ ...newBook, status: newBook.status as "backlog" },
+			{ ...newBook, status: newBook.status as "toRead" },
 		]
 		setBooks(updatedBooks)
 
 		localStorage.setItem("readingList", JSON.stringify(updatedBooks))
 	}
 
-	const moveBook = (book: Book) => {}
+	const moveBook = (bookToMove: Book, newStatus: Book["status"]) => {
+		const updatedBooks: Book[] = books.map((book) =>
+			book.key === bookToMove.key ? { ...book, status: newStatus } : book,
+		)
+
+		setBooks(updatedBooks)
+		localStorage.setItem("readingList", JSON.stringify(updatedBooks))
+	}
 
 	return (
 		<div className="container mx-auto">
 			<BookSearch onAddBook={addBook} />
-			<BookList books={books}></BookList>
+			<BookList books={books} onMoveBook={moveBook}></BookList>
 		</div>
 	)
 }
