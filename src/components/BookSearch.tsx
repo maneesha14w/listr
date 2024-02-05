@@ -172,4 +172,3 @@ export const BookSearch = ({
 		</div>
 	)
 }
-

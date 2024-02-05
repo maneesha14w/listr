@@ -19,7 +19,11 @@ export const BookList = ({
 		onMoveBook(book, targetList)
 	}
 
-	const renderBookItem = (book: Book, index: number) => (
+	const renderBookItem = (
+		book: Book,
+		index: number,
+		btnType: Book["status"],
+	) => (
 		<Card key={index}>
 			<CardHeader>
 				<CardTitle>{book.title}</CardTitle>
@@ -32,6 +36,7 @@ export const BookList = ({
 						onClick={() => {
 							moveToList(book, "reading")
 						}}
+						disabled={btnType === "reading"}
 					>
 						Currently Reading
 					</Button>
@@ -40,6 +45,7 @@ export const BookList = ({
 						onClick={() => {
 							moveToList(book, "toRead")
 						}}
+						disabled={btnType === "toRead"}
 					>
 						Saved
 					</Button>
@@ -48,6 +54,7 @@ export const BookList = ({
 						onClick={() => {
 							moveToList(book, "complete")
 						}}
+						disabled={btnType === "complete"}
 					>
 						Complete
 					</Button>
@@ -64,7 +71,7 @@ export const BookList = ({
 					<div>
 						{books
 							.filter((book) => book.status === "reading")
-							.map((book, index) => renderBookItem(book, index))}
+							.map((book, index) => renderBookItem(book, index, "reading"))}
 					</div>
 				</>
 			)}
@@ -74,7 +81,7 @@ export const BookList = ({
 					<div>
 						{books
 							.filter((book) => book.status === "toRead")
-							.map((book, index) => renderBookItem(book, index))}
+							.map((book, index) => renderBookItem(book, index, "toRead"))}
 					</div>
 				</>
 			)}
@@ -84,7 +91,7 @@ export const BookList = ({
 					<div>
 						{books
 							.filter((book) => book.status === "complete")
-							.map((book, index) => renderBookItem(book, index))}
+							.map((book, index) => renderBookItem(book, index, "complete"))}
 					</div>
 				</>
 			)}
