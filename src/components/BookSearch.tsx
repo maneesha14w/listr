@@ -10,15 +10,6 @@ import {
 	TableRow,
 } from "@/components/ui/table"
 
-export type Book = {
-	key: string
-	title: string
-	author_name: string[]
-	first_publish_year: string
-	number_of_pages_median: string | null
-	status: "complete" | "reading" | "toRead"
-}
-
 export const BookSearch = ({
 	onAddBook,
 }: {
