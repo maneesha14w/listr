@@ -33,10 +33,26 @@ const App = () => {
 		localStorage.setItem("readingList", JSON.stringify(updatedBooks))
 	}
 
+	const removeBook = (bookToRemove: Book) => {
+		if (
+			window.confirm(`Are you sure you want to remove ${bookToRemove.title}?`)
+		) {
+			const updatedBooks: Book[] = books.filter(
+				(book) => book.key !== bookToRemove.key,
+			)
+			setBooks(updatedBooks)
+			localStorage.setItem("readingList", JSON.stringify(updatedBooks))
+		}
+	}
+
 	return (
 		<div className="container mx-auto">
 			<BookSearch onAddBook={addBook} />
-			<BookList books={books} onMoveBook={moveBook}></BookList>
+			<BookList
+				books={books}
+				onMoveBook={moveBook}
+				onRemoveBook={removeBook}
+			></BookList>
 		</div>
 	)
 }
