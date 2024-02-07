@@ -1,4 +1,4 @@
-import { Book } from "./BookSearch"
+import { Book } from "../store.tsx"
 import {
 	Card,
 	CardDescription,
