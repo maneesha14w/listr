@@ -9,15 +9,13 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table"
+import { Book, useStore } from "@/store"
 
-export const BookSearch = ({
-	onAddBook,
-}: {
-	onAddBook: (book: Book) => void
-}) => {
+export const BookSearch = () => {
+	const { books, addBook } = useStore((state) => state)
 	// State variables
 	const [query, setQuery] = useState("")
-	const [result, setResults] = useState<any[]>([])
+	const [result, setResults] = useState<Book[]>([])
 	const [isLoading, setIsLoading] = useState(false)
 	const [totalResults, setTotalResults] = useState(0)
 	const [currentPage, setCurrentPage] = useState(1)
@@ -35,7 +33,7 @@ export const BookSearch = ({
 
 		setIsLoading(true)
 		try {
-			// Fetch data from Open Library API using Fetch
+			// Fetch data from Open Library API
 			const response: SearchResult = await fetch(
 				`https://openlibrary.org/search.json?q=${query}&page=${page}&limit=${resultsPerPage}`,
 			)
@@ -123,7 +121,7 @@ export const BookSearch = ({
 									<Button
 										variant="link"
 										onClick={() => {
-											onAddBook({
+											addBook({
 												key: book.key,
 												title: book.title,
 												author_name: book.author_name,
@@ -132,6 +130,7 @@ export const BookSearch = ({
 												status: "toRead",
 											})
 										}}
+										disabled={books.some((b) => b.key === book.key)}
 									>
 										Add
 									</Button>

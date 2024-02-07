@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react"
-import { Book, BookSearch } from "./components/BookSearch"
+import { useEffect } from "react"
+import { BookSearch } from "./components/BookSearch"
 import { BookList } from "./components/BookList"
+import { useStore } from "./store"
 
 const App = () => {
-	useEffect(() => {}, [])
+	const { loadBooksFromLocalStorage } = useStore((state) => state)
+	useEffect(() => {
+		loadBooksFromLocalStorage()
+	}, [loadBooksFromLocalStorage])
 	return (
 		<div className="container mx-auto">
-			<BookSearch onAddBook={addBook} />
-			<BookList
-				books={books}
-				onMoveBook={moveBook}
-				onRemoveBook={removeBook}
-			></BookList>
+			<BookSearch />
+			<BookList />
 		</div>
 	)
 }

@@ -1,4 +1,3 @@
-import { Book } from "../store.tsx"
 import {
 	Card,
 	CardDescription,
@@ -7,18 +6,13 @@ import {
 	CardTitle,
 } from "./ui/card"
 import { Button } from "./ui/button"
+import { Book, useStore } from "@/store"
 
-export const BookList = ({
-	books,
-	onMoveBook,
-	onRemoveBook,
-}: {
-	books: Book[]
-	onMoveBook: (book: Book, targetList: Book["status"]) => void
-	onRemoveBook: (book: Book) => void
-}) => {
+export const BookList = () => {
+	const { books, moveBook, removeBook } = useStore((state) => state)
+
 	const moveToList = (book: Book, targetList: Book["status"]) => {
-		onMoveBook(book, targetList)
+		moveBook(book, targetList)
 	}
 
 	const renderBookItem = (
@@ -35,7 +29,7 @@ export const BookList = ({
 				<Button
 					variant="destructive"
 					onClick={() => {
-						onRemoveBook(book)
+						removeBook(book)
 					}}
 				>
 					<svg
