@@ -14,15 +14,7 @@ const App = () => {
 		}
 	}, [])
 
-	const addBook = (newBook: Book) => {
-		const updatedBooks = [
-			...books,
-			{ ...newBook, status: newBook.status as "toRead" },
-		]
-		setBooks(updatedBooks)
-
-		localStorage.setItem("readingList", JSON.stringify(updatedBooks))
-	}
+	const addBook = (newBook: Book) => {}
 
 	const moveBook = (bookToMove: Book, newStatus: Book["status"]) => {
 		const updatedBooks: Book[] = books.map((book) =>
