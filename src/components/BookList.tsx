@@ -7,7 +7,12 @@ import {
 } from "./ui/card"
 import { Button } from "./ui/button"
 import { Book, useStore } from "@/store"
-import { DragDropContext, DropResult } from "@hello-pangea/dnd"
+import {
+	DragDropContext,
+	Draggable,
+	DropResult,
+	Droppable,
+} from "@hello-pangea/dnd"
 
 export const BookList = () => {
 	const { books, moveBook, removeBook, reorderBooks } = useStore(
@@ -96,6 +101,37 @@ export const BookList = () => {
 		reorderBooks(listType, sourceIndex, destinationIndex)
 	}
 
+	const renderDraggableBookList = (listType: Book["status"]) => {
+		const filteredBooks = books.filter((book) => book.status === listType)
+		return (
+			// define drop zone
+			<Droppable droppableId={listType}>
+				{(provided) => (
+					//entire droppable area
+					<div {...provided.droppableProps} ref={provided.innerRef}>
+						{filteredBooks.map((book, index) => (
+							//every draggable item
+							<Draggable key={book.key} draggableId={book.key} index={index}>
+								{(provided) => (
+									<div
+										ref={provided.innerRef}
+										{...provided.draggableProps}
+										className="my-2"
+									>
+										<div {...provided.dragHandleProps}>
+											{renderBookItem(book, index, listType)}
+										</div>
+									</div>
+								)}
+							</Draggable>
+						))}
+						{provided.placeholder}
+					</div>
+				)}
+			</Droppable>
+		)
+	}
+
 	return (
 		<div className="space-y-8 p-4">
 			<h2 className="mb-4 text-2xl font-bold">My Reading List</h2>
@@ -103,11 +139,7 @@ export const BookList = () => {
 				{books.filter((book) => book.status === "reading").length > 0 && (
 					<>
 						<h3 className="mb-2 text-xl font-semibold">Reading</h3>
-						<div>
-							{books
-								.filter((book) => book.status === "reading")
-								.map((book, index) => renderBookItem(book, index, "reading"))}
-						</div>
+						{renderDraggableBookList("reading")}
 					</>
 				)}
 			</DragDropContext>
@@ -115,11 +147,7 @@ export const BookList = () => {
 				{books.filter((book) => book.status === "toRead").length > 0 && (
 					<>
 						<h3 className="mb-2 text-xl font-semibold">To Read</h3>
-						<div>
-							{books
-								.filter((book) => book.status === "toRead")
-								.map((book, index) => renderBookItem(book, index, "toRead"))}
-						</div>
+						<div>{renderDraggableBookList("toRead")}</div>
 					</>
 				)}
 			</DragDropContext>
