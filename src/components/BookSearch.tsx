@@ -10,6 +10,7 @@ import {
 	TableRow,
 } from "@/components/ui/table"
 import { Book, useStore } from "@/store"
+import { ModeToggle } from "./ui/mode-toggle"
 
 export const BookSearch = () => {
 	const { books, addBook } = useStore((state) => state)
@@ -146,25 +147,30 @@ export const BookSearch = () => {
 					</div>
 				)}
 			</div>
-			<div className="mt-4 flex items-center justify-between">
-				<Button
-					variant={"outline"}
-					disabled={currentPage <= 1 || isLoading}
-					onClick={prevPageHandler}
-				>
-					Previous
-				</Button>
-				<span>{`Page ${currentPage}`}</span>
-				<Button
-					variant={"outline"}
-					disabled={
-						currentPage >= Math.ceil(totalResults / resultsPerPage) || isLoading
-					}
-					onClick={nextPageHandler}
-				>
-					Next
-				</Button>
-			</div>
+			{query.length > 0 && result.length > 0 ? (
+				<div className="mt-4 flex items-center justify-between">
+					<Button
+						variant={"outline"}
+						disabled={currentPage <= 1 || isLoading}
+						onClick={prevPageHandler}
+					>
+						Previous
+					</Button>
+					<span>{`Page ${currentPage}`}</span>
+					<Button
+						variant={"outline"}
+						disabled={
+							currentPage >= Math.ceil(totalResults / resultsPerPage) ||
+							isLoading
+						}
+						onClick={nextPageHandler}
+					>
+						Next
+					</Button>
+				</div>
+			) : (
+				<div></div>
+			)}
 		</div>
 	)
 }
