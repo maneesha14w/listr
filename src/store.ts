@@ -18,6 +18,11 @@ interface BookStore extends BookState {
 	removeBook: (bookToRemove: Book) => void
 	moveBook: (book: Book, newStatus: Book["status"]) => void
 	loadBooksFromLocalStorage: () => void
+	reorderBooks: (
+		listType: Book["status"],
+		startIndex: number,
+		endIndex: number,
+	) => void
 }
 
 export const useStore = create<BookStore>((set) => ({
@@ -63,5 +68,23 @@ export const useStore = create<BookStore>((set) => ({
 		} else {
 			set({ books: [] })
 		}
+	},
+	reorderBooks: (
+		listType: Book["status"],
+		startIndex: number,
+		endIndex: number,
+	) => {
+		set((state: BookState) => {
+			const filteredBooks = state.books.filter(
+				(book) => book.status === listType,
+			)
+			const [reorderedBook] = filteredBooks.splice(startIndex, 1)
+			filteredBooks.splice(endIndex, 0, reorderedBook)
+			const updatedBooks: Book[] = state.books.map((book) =>
+				book.status === listType ? filteredBooks.shift() || book : book,
+			)
+			localStorage.setItem("readingList", JSON.stringify(updatedBooks))
+			return { books: updatedBooks }
+		})
 	},
 }))

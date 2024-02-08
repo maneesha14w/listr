@@ -7,9 +7,12 @@ import {
 } from "./ui/card"
 import { Button } from "./ui/button"
 import { Book, useStore } from "@/store"
+import { DragDropContext, DropResult } from "@hello-pangea/dnd"
 
 export const BookList = () => {
-	const { books, moveBook, removeBook } = useStore((state) => state)
+	const { books, moveBook, removeBook, reorderBooks } = useStore(
+		(state) => state,
+	)
 
 	const moveToList = (book: Book, targetList: Book["status"]) => {
 		moveBook(book, targetList)
@@ -83,29 +86,43 @@ export const BookList = () => {
 			</CardFooter>
 		</Card>
 	)
+
+	const onDragEnd = (result: DropResult) => {
+		if (!result.destination) return
+
+		const sourceIndex = result.source.index
+		const destinationIndex = result.destination.index
+		const listType = result.source.droppableId as Book["status"]
+		reorderBooks(listType, sourceIndex, destinationIndex)
+	}
+
 	return (
 		<div className="space-y-8 p-4">
 			<h2 className="mb-4 text-2xl font-bold">My Reading List</h2>
-			{books.filter((book) => book.status === "reading").length > 0 && (
-				<>
-					<h3 className="mb-2 text-xl font-semibold">Reading</h3>
-					<div>
-						{books
-							.filter((book) => book.status === "reading")
-							.map((book, index) => renderBookItem(book, index, "reading"))}
-					</div>
-				</>
-			)}
-			{books.filter((book) => book.status === "toRead").length > 0 && (
-				<>
-					<h3 className="mb-2 text-xl font-semibold">To Read</h3>
-					<div>
-						{books
-							.filter((book) => book.status === "toRead")
-							.map((book, index) => renderBookItem(book, index, "toRead"))}
-					</div>
-				</>
-			)}
+			<DragDropContext onDragEnd={onDragEnd}>
+				{books.filter((book) => book.status === "reading").length > 0 && (
+					<>
+						<h3 className="mb-2 text-xl font-semibold">Reading</h3>
+						<div>
+							{books
+								.filter((book) => book.status === "reading")
+								.map((book, index) => renderBookItem(book, index, "reading"))}
+						</div>
+					</>
+				)}
+			</DragDropContext>
+			<DragDropContext onDragEnd={onDragEnd}>
+				{books.filter((book) => book.status === "toRead").length > 0 && (
+					<>
+						<h3 className="mb-2 text-xl font-semibold">To Read</h3>
+						<div>
+							{books
+								.filter((book) => book.status === "toRead")
+								.map((book, index) => renderBookItem(book, index, "toRead"))}
+						</div>
+					</>
+				)}
+			</DragDropContext>
 			{books.filter((book) => book.status === "complete").length > 0 && (
 				<>
 					<h3 className="mb-2 text-xl font-semibold">Completed</h3>
