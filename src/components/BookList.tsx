@@ -134,7 +134,7 @@ export const BookList = () => {
 
 	return (
 		<div className="space-y-8 p-4">
-			<h2 className="mb-4 text-2xl font-bold">My Reading List</h2>
+			<h2 className="mb-4 text-3xl font-bold">My Reading List</h2>
 			<DragDropContext onDragEnd={onDragEnd}>
 				{books.filter((book) => book.status === "reading").length > 0 && (
 					<>
