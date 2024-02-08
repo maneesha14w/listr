@@ -100,45 +100,51 @@ export const BookSearch = () => {
 				)}
 			</div>
 			<div className="mt-4 max-h-64 overflow-auto">
-				<Table>
-					<TableHeader>
-						<TableRow>
-							<TableHead className="p-2 ">Title</TableHead>
-							<TableHead className="p-2">Author</TableHead>
-							<TableHead className="p-2">Year</TableHead>
-							<TableHead className="p-2">Page Count</TableHead>
-							<TableHead className="p-2"></TableHead>
-						</TableRow>
-					</TableHeader>
-					<TableBody>
-						{result.map((book) => (
+				{query.length > 0 && result.length > 0 ? (
+					<Table>
+						<TableHeader>
 							<TableRow>
-								<TableCell>{book.title}</TableCell>
-								<TableCell>{book.author_name}</TableCell>
-								<TableCell>{book.first_publish_year}</TableCell>
-								<TableCell>{book.number_of_pages_median || "_"}</TableCell>
-								<TableCell>
-									<Button
-										variant="link"
-										onClick={() => {
-											addBook({
-												key: book.key,
-												title: book.title,
-												author_name: book.author_name,
-												first_publish_year: book.first_publish_year,
-												number_of_pages_median: book.number_of_pages_median,
-												status: "toRead",
-											})
-										}}
-										disabled={books.some((b) => b.key === book.key)}
-									>
-										Add
-									</Button>
-								</TableCell>
+								<TableHead className="p-2 ">Title</TableHead>
+								<TableHead className="p-2">Author</TableHead>
+								<TableHead className="p-2">Year</TableHead>
+								<TableHead className="p-2">Page Count</TableHead>
+								<TableHead className="p-2"></TableHead>
 							</TableRow>
-						))}
-					</TableBody>
-				</Table>
+						</TableHeader>
+						<TableBody>
+							{result.map((book) => (
+								<TableRow>
+									<TableCell>{book.title}</TableCell>
+									<TableCell>{book.author_name}</TableCell>
+									<TableCell>{book.first_publish_year}</TableCell>
+									<TableCell>{book.number_of_pages_median || "_"}</TableCell>
+									<TableCell>
+										<Button
+											variant="link"
+											onClick={() => {
+												addBook({
+													key: book.key,
+													title: book.title,
+													author_name: book.author_name,
+													first_publish_year: book.first_publish_year,
+													number_of_pages_median: book.number_of_pages_median,
+													status: "toRead",
+												})
+											}}
+											disabled={books.some((b) => b.key === book.key)}
+										>
+											Add
+										</Button>
+									</TableCell>
+								</TableRow>
+							))}
+						</TableBody>
+					</Table>
+				) : (
+					<div className="flex max-h-60 items-center justify-center p-16">
+						Start your Search!
+					</div>
+				)}
 			</div>
 			<div className="mt-4 flex items-center justify-between">
 				<Button
