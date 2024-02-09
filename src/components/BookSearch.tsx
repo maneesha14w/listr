@@ -104,32 +104,41 @@ export const BookSearch = () => {
 						)}
 					</Button>
 				</div>
-				{/* <div className="mt-2">
-					{totalResults > 0 && (
-						<p className="text-sm">
-							Showing {startIndex} - {endIndex} out of {totalResults} results
-						</p>
-					)}
-				</div> */}
-				<div className="mb-4 mt-4 max-h-64 overflow-auto">
+
+				<div
+					className=" max-h-[400px] max-w-full overflow-y-auto
+  [&::-webkit-scrollbar-thumb]:rounded-full
+  [&::-webkit-scrollbar-thumb]:bg-gray-300
+  dark:[&::-webkit-scrollbar-thumb]:bg-slate-500
+  [&::-webkit-scrollbar-track]:rounded-full
+  [&::-webkit-scrollbar-track]:bg-gray-100
+  dark:[&::-webkit-scrollbar-track]:bg-slate-700
+  [&::-webkit-scrollbar]:w-2"
+				>
 					{query.length > 0 && result.length > 0 ? (
 						<Table>
 							<TableHeader>
 								<TableRow>
-									<TableHead className="p-2 ">Title</TableHead>
-									<TableHead className="p-2">Author</TableHead>
-									<TableHead className="p-2">Year</TableHead>
-									<TableHead className="p-2">Page Count</TableHead>
-									<TableHead className="p-2"></TableHead>
+									<TableHead>Title</TableHead>
+									<TableHead>Author</TableHead>
+									<TableHead className="hidden sm:table-cell">Year</TableHead>
+									<TableHead className="hidden sm:table-cell">
+										Page Count
+									</TableHead>
+									<TableHead></TableHead>
 								</TableRow>
 							</TableHeader>
-							<TableBody>
+							<TableBody className="overflow-y-auto">
 								{result.map((book) => (
 									<TableRow>
 										<TableCell>{book.title}</TableCell>
 										<TableCell>{book.author_name}</TableCell>
-										<TableCell>{book.first_publish_year}</TableCell>
-										<TableCell>{book.number_of_pages_median || "_"}</TableCell>
+										<TableCell className="hidden sm:table-cell">
+											{book.first_publish_year}
+										</TableCell>
+										<TableCell className="hidden sm:table-cell">
+											{book.number_of_pages_median || "_"}
+										</TableCell>
 										<TableCell>
 											<Button
 												variant="link"
@@ -153,44 +162,40 @@ export const BookSearch = () => {
 							</TableBody>
 						</Table>
 					) : (
-						<div className=" flex max-h-60 items-center justify-center p-16">
+						<div className="flex max-h-60 items-center justify-center p-16 text-gray-600 dark:text-gray-400">
 							Start your Search!
 						</div>
 					)}
 				</div>
-				<div
-					className="max-h-[400px] overflow-y-auto
-  [&::-webkit-scrollbar-thumb]:rounded-full
-  [&::-webkit-scrollbar-thumb]:bg-gray-300
-  dark:[&::-webkit-scrollbar-thumb]:bg-slate-500
-  [&::-webkit-scrollbar-track]:rounded-full
-  [&::-webkit-scrollbar-track]:bg-gray-100
-  dark:[&::-webkit-scrollbar-track]:bg-slate-700
-  [&::-webkit-scrollbar]:w-2"
-				>
-					{query.length > 0 && result.length > 0 ? (
-						<div className="mt-4 flex items-center justify-between">
-							<Button
-								variant={"outline"}
-								disabled={currentPage <= 1 || isLoading}
-								onClick={prevPageHandler}
-							>
-								Previous
-							</Button>
-							<span>{`Page ${currentPage}`}</span>
-							<Button
-								variant={"outline"}
-								disabled={
-									currentPage >= Math.ceil(totalResults / resultsPerPage) ||
-									isLoading
-								}
-								onClick={nextPageHandler}
-							>
-								Next
-							</Button>
-						</div>
-					) : (
-						<div></div>
+				{query.length > 0 && result.length > 0 ? (
+					<div className="mt-4 flex items-center justify-between">
+						<Button
+							variant={"outline"}
+							disabled={currentPage <= 1 || isLoading}
+							onClick={prevPageHandler}
+						>
+							Previous
+						</Button>
+						<span>{`Page ${currentPage}`}</span>
+						<Button
+							variant={"outline"}
+							disabled={
+								currentPage >= Math.ceil(totalResults / resultsPerPage) ||
+								isLoading
+							}
+							onClick={nextPageHandler}
+						>
+							Next
+						</Button>
+					</div>
+				) : (
+					<div></div>
+				)}
+				<div className="mt-2 flex justify-center pt-4 text-xs text-gray-700 dark:text-gray-500">
+					{totalResults > 0 && (
+						<p className="text-sm">
+							Showing {startIndex} - {endIndex} out of {totalResults} results
+						</p>
 					)}
 				</div>
 			</div>
