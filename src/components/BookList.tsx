@@ -72,9 +72,9 @@ export const BookList = () => {
 					<Button
 						variant="outline"
 						onClick={() => {
-							moveToList(book, "toRead")
+							moveToList(book, "saved")
 						}}
-						disabled={btnType === "toRead"}
+						disabled={btnType === "saved"}
 					>
 						Saved
 					</Button>
@@ -133,7 +133,7 @@ export const BookList = () => {
 	}
 
 	return (
-		<div className="space-y-8 p-4">
+		<div className="mt-20 space-y-8 p-4">
 			<h2 className="mb-4 text-3xl font-bold">My Reading List</h2>
 			<DragDropContext onDragEnd={onDragEnd}>
 				{books.filter((book) => book.status === "reading").length > 0 && (
@@ -144,10 +144,10 @@ export const BookList = () => {
 				)}
 			</DragDropContext>
 			<DragDropContext onDragEnd={onDragEnd}>
-				{books.filter((book) => book.status === "toRead").length > 0 && (
+				{books.filter((book) => book.status === "saved").length > 0 && (
 					<>
 						<h3 className="mb-2 text-xl font-semibold">To Read</h3>
-						<div>{renderDraggableBookList("toRead")}</div>
+						<div>{renderDraggableBookList("saved")}</div>
 					</>
 				)}
 			</DragDropContext>

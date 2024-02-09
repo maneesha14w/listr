@@ -10,7 +10,7 @@ import {
 	TableRow,
 } from "@/components/ui/table"
 import { Book, useStore } from "@/store"
-import { ModeToggle } from "./ui/mode-toggle"
+import { AiOutlineLoading3Quarters } from "react-icons/ai"
 
 export const BookSearch = () => {
 	const { books, addBook } = useStore((state) => state)
@@ -75,102 +75,114 @@ export const BookSearch = () => {
 
 	// JSX structure for rendering the component
 	return (
-		<div className=" p-4">
-			<div className="sm:max-w-xs">
-				<Input
-					type="text"
-					value={query}
-					onChange={(e) => setQuery(e.target.value)}
-					placeholder="Search for your next book"
-					onKeyUp={handleKeyPress}
-				/>
-			</div>
-			<Button
-				onClick={() => {
-					searchBooks()
-				}}
-				disabled={isLoading ? true : false}
-			>
-				{isLoading ? "Searching" : "Search"}
-			</Button>
-			<div className="mt-2">
-				{totalResults > 0 && (
-					<p className="text-sm">
-						Showing {startIndex} - {endIndex} out of {totalResults} results
-					</p>
-				)}
-			</div>
-			<div className="mt-4 max-h-64 overflow-auto">
-				{query.length > 0 && result.length > 0 ? (
-					<Table>
-						<TableHeader>
-							<TableRow>
-								<TableHead className="p-2 ">Title</TableHead>
-								<TableHead className="p-2">Author</TableHead>
-								<TableHead className="p-2">Year</TableHead>
-								<TableHead className="p-2">Page Count</TableHead>
-								<TableHead className="p-2"></TableHead>
-							</TableRow>
-						</TableHeader>
-						<TableBody>
-							{result.map((book) => (
-								<TableRow>
-									<TableCell>{book.title}</TableCell>
-									<TableCell>{book.author_name}</TableCell>
-									<TableCell>{book.first_publish_year}</TableCell>
-									<TableCell>{book.number_of_pages_median || "_"}</TableCell>
-									<TableCell>
-										<Button
-											variant="link"
-											onClick={() => {
-												addBook({
-													key: book.key,
-													title: book.title,
-													author_name: book.author_name,
-													first_publish_year: book.first_publish_year,
-													number_of_pages_median: book.number_of_pages_median,
-													status: "toRead",
-												})
-											}}
-											disabled={books.some((b) => b.key === book.key)}
-										>
-											Add
-										</Button>
-									</TableCell>
-								</TableRow>
-							))}
-						</TableBody>
-					</Table>
-				) : (
-					<div className="flex max-h-60 items-center justify-center p-16">
-						Start your Search!
+		<div className="-m-1.5 mt-5 overflow-x-auto">
+			<div className="sm:dark: sm:dark:background  sm:divide-y sm:divide-gray-200 sm:rounded-2xl sm:dark:divide-gray-700 sm:dark:border-gray-700">
+				<div className="col flex flex-col items-center justify-center gap-5 pb-10 sm:flex-row">
+					<div className=" relative w-full sm:max-w-xs">
+						<Input
+							type="text"
+							value={query}
+							onChange={(e) => setQuery(e.target.value)}
+							placeholder="Search for your next book"
+							onKeyUp={handleKeyPress}
+						/>
 					</div>
-				)}
-			</div>
-			{query.length > 0 && result.length > 0 ? (
-				<div className="mt-4 flex items-center justify-between">
 					<Button
-						variant={"outline"}
-						disabled={currentPage <= 1 || isLoading}
-						onClick={prevPageHandler}
+						className="max-sm:w-full sm:max-w-xs"
+						onClick={() => {
+							searchBooks()
+						}}
+						disabled={isLoading ? true : false}
 					>
-						Previous
-					</Button>
-					<span>{`Page ${currentPage}`}</span>
-					<Button
-						variant={"outline"}
-						disabled={
-							currentPage >= Math.ceil(totalResults / resultsPerPage) ||
-							isLoading
-						}
-						onClick={nextPageHandler}
-					>
-						Next
+						{isLoading ? (
+							<>
+								<AiOutlineLoading3Quarters className="mr-2 h-4 w-4 animate-spin" />
+								Searching..
+							</>
+						) : (
+							"Search"
+						)}
 					</Button>
 				</div>
-			) : (
-				<div></div>
-			)}
+				{/* <div className="mt-2">
+					{totalResults > 0 && (
+						<p className="text-sm">
+							Showing {startIndex} - {endIndex} out of {totalResults} results
+						</p>
+					)}
+				</div> */}
+				<div className="mb-4 mt-4 max-h-64 overflow-auto">
+					{query.length > 0 && result.length > 0 ? (
+						<Table>
+							<TableHeader>
+								<TableRow>
+									<TableHead className="p-2 ">Title</TableHead>
+									<TableHead className="p-2">Author</TableHead>
+									<TableHead className="p-2">Year</TableHead>
+									<TableHead className="p-2">Page Count</TableHead>
+									<TableHead className="p-2"></TableHead>
+								</TableRow>
+							</TableHeader>
+							<TableBody>
+								{result.map((book) => (
+									<TableRow>
+										<TableCell>{book.title}</TableCell>
+										<TableCell>{book.author_name}</TableCell>
+										<TableCell>{book.first_publish_year}</TableCell>
+										<TableCell>{book.number_of_pages_median || "_"}</TableCell>
+										<TableCell>
+											<Button
+												variant="link"
+												onClick={() => {
+													addBook({
+														key: book.key,
+														title: book.title,
+														author_name: book.author_name,
+														first_publish_year: book.first_publish_year,
+														number_of_pages_median: book.number_of_pages_median,
+														status: "saved",
+													})
+												}}
+												disabled={books.some((b) => b.key === book.key)}
+											>
+												Add
+											</Button>
+										</TableCell>
+									</TableRow>
+								))}
+							</TableBody>
+						</Table>
+					) : (
+						<div className=" flex max-h-60 items-center justify-center p-16">
+							Start your Search!
+						</div>
+					)}
+				</div>
+				{query.length > 0 && result.length > 0 ? (
+					<div className="mt-4 flex items-center justify-between">
+						<Button
+							variant={"outline"}
+							disabled={currentPage <= 1 || isLoading}
+							onClick={prevPageHandler}
+						>
+							Previous
+						</Button>
+						<span>{`Page ${currentPage}`}</span>
+						<Button
+							variant={"outline"}
+							disabled={
+								currentPage >= Math.ceil(totalResults / resultsPerPage) ||
+								isLoading
+							}
+							onClick={nextPageHandler}
+						>
+							Next
+						</Button>
+					</div>
+				) : (
+					<div></div>
+				)}
+			</div>
 		</div>
 	)
 }

@@ -6,7 +6,7 @@ export type Book = {
 	author_name: string[]
 	first_publish_year: string
 	number_of_pages_median: string | null
-	status: "complete" | "reading" | "toRead"
+	status: "complete" | "reading" | "saved"
 }
 
 interface BookState {
@@ -31,7 +31,7 @@ export const useStore = create<BookStore>((set) => ({
 		set((state: BookState) => {
 			const updatedBooks = [
 				...state.books,
-				{ ...newBook, status: newBook.status as "toRead" },
+				{ ...newBook, status: newBook.status as "saved" },
 			]
 			localStorage.setItem("readingList", JSON.stringify(updatedBooks))
 			return { books: updatedBooks }

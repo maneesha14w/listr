@@ -4,6 +4,7 @@ import { BookList } from "./components/BookList"
 import { useStore } from "./store"
 import "./App.css" // Import app.css
 import { ThemeProvider } from "./components/theme-provider"
+import { Layout } from "./components/ui/Layout"
 
 const App = () => {
 	const { loadBooksFromLocalStorage } = useStore((state) => state)
@@ -12,10 +13,12 @@ const App = () => {
 	}, [loadBooksFromLocalStorage])
 	return (
 		<ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-			<div className="container mx-auto">
-				<BookSearch />
-				<BookList />
-			</div>
+			<Layout>
+				<div className="container mx-auto">
+					<BookSearch />
+					<BookList />
+				</div>
+			</Layout>
 		</ThemeProvider>
 	)
 }
