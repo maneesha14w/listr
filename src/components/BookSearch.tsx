@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/table"
 import { Book, useStore } from "@/store"
 import { AiOutlineLoading3Quarters } from "react-icons/ai"
+import { SlArrowLeft, SlArrowRight } from "react-icons/sl"
 
 export const BookSearch = () => {
 	const { books, addBook } = useStore((state) => state)
@@ -104,7 +105,6 @@ export const BookSearch = () => {
 						)}
 					</Button>
 				</div>
-
 				<div
 					className=" max-h-[400px] max-w-full overflow-y-auto
   [&::-webkit-scrollbar-thumb]:rounded-full
@@ -115,7 +115,7 @@ export const BookSearch = () => {
   dark:[&::-webkit-scrollbar-track]:bg-slate-700
   [&::-webkit-scrollbar]:w-2"
 				>
-					{query.length > 0 && result.length > 0 ? (
+					{query.length > 0 && totalResults > 0 ? (
 						<Table>
 							<TableHeader>
 								<TableRow>
@@ -167,14 +167,14 @@ export const BookSearch = () => {
 						</div>
 					)}
 				</div>
-				{query.length > 0 && result.length > 0 ? (
-					<div className="mt-4 flex items-center justify-between">
+				{query.length > 0 && totalResults > 0 ? (
+					<div className="mt-4 flex items-center justify-between pt-2">
 						<Button
 							variant={"outline"}
 							disabled={currentPage <= 1 || isLoading}
 							onClick={prevPageHandler}
 						>
-							Previous
+							<SlArrowLeft className="size-4" />
 						</Button>
 						<span>{`Page ${currentPage}`}</span>
 						<Button
@@ -185,19 +185,23 @@ export const BookSearch = () => {
 							}
 							onClick={nextPageHandler}
 						>
-							Next
+							<SlArrowRight className="size-4" />
 						</Button>
 					</div>
 				) : (
 					<div></div>
 				)}
-				<div className="mt-2 flex justify-center pt-4 text-xs text-gray-700 dark:text-gray-500">
-					{totalResults > 0 && (
-						<p className="text-sm">
-							Showing {startIndex} - {endIndex} out of {totalResults} results
-						</p>
-					)}
-				</div>
+				{query.length > 0 && totalResults > 0 ? (
+					<div className="mt-2 flex justify-center pt-4 text-xs text-gray-700 dark:text-gray-500">
+						{totalResults > 0 && (
+							<p className="text-sm">
+								Showing {startIndex} - {endIndex} out of {totalResults} results
+							</p>
+						)}
+					</div>
+				) : (
+					<div></div>
+				)}
 			</div>
 		</div>
 	)
