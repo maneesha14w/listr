@@ -13,6 +13,11 @@ import {
 	DropResult,
 	Droppable,
 } from "@hello-pangea/dnd"
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipTrigger,
+} from "@radix-ui/react-tooltip"
 
 export const BookList = () => {
 	const { books, moveBook, removeBook, reorderBooks } = useStore(
@@ -28,65 +33,141 @@ export const BookList = () => {
 		index: number,
 		btnType: Book["status"],
 	) => (
-		<Card key={index}>
+		<Card
+			className="rounded-none first:mt-0 first:rounded-t-lg last:rounded-b-lg"
+			key={index}
+		>
 			<CardHeader>
 				<CardTitle>{book.title}</CardTitle>
 				<CardDescription>{book.author_name}</CardDescription>
 			</CardHeader>
 			<CardFooter className="flex justify-between">
-				<Button
-					variant="destructive"
-					onClick={() => {
-						removeBook(book)
-					}}
-				>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="18"
-						height="18"
-						viewBox="0 0 24 24"
-						strokeWidth="2"
-						stroke="currentColor"
-						fill="none"
-						strokeLinecap="round"
-						strokeLinejoin="round"
-					>
-						<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-						<path d="M4 7l16 0" />
-						<path d="M10 11l0 6" />
-						<path d="M14 11l0 6" />
-						<path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-						<path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-					</svg>
-				</Button>
+				<Tooltip>
+					<TooltipTrigger asChild>
+						<Button
+							variant="destructive"
+							onClick={() => {
+								removeBook(book)
+							}}
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="18"
+								height="18"
+								viewBox="0 0 24 24"
+								strokeWidth="2"
+								stroke="currentColor"
+								fill="none"
+								strokeLinecap="round"
+								strokeLinejoin="round"
+							>
+								<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+								<path d="M4 7l16 0" />
+								<path d="M10 11l0 6" />
+								<path d="M14 11l0 6" />
+								<path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+								<path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+							</svg>
+						</Button>
+					</TooltipTrigger>
+					<TooltipContent>Delete</TooltipContent>
+				</Tooltip>
 				<div className="inline-flex gap-5">
-					<Button
-						variant="outline"
-						onClick={() => {
-							moveToList(book, "reading")
-						}}
-						disabled={btnType === "reading"}
-					>
-						Currently Reading
-					</Button>
-					<Button
-						variant="outline"
-						onClick={() => {
-							moveToList(book, "saved")
-						}}
-						disabled={btnType === "saved"}
-					>
-						Saved
-					</Button>
-					<Button
-						variant="outline"
-						onClick={() => {
-							moveToList(book, "complete")
-						}}
-						disabled={btnType === "complete"}
-					>
-						Complete
-					</Button>
+					<Tooltip>
+						<TooltipTrigger asChild>
+							<Button
+								variant="outline"
+								onClick={() => {
+									moveToList(book, "reading")
+								}}
+								disabled={btnType === "reading"}
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="icon icon-tabler icon-tabler-book-filled"
+									width="24"
+									height="24"
+									viewBox="0 0 24 24"
+									stroke-width="1.5"
+									stroke="currentColor"
+									fill="none"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+									<path
+										d="M12.088 4.82a10 10 0 0 1 9.412 .314a1 1 0 0 1 .493 .748l.007 .118v13a1 1 0 0 1 -1.5 .866a8 8 0 0 0 -8 0a1 1 0 0 1 -1 0a8 8 0 0 0 -7.733 -.148l-.327 .18l-.103 .044l-.049 .016l-.11 .026l-.061 .01l-.117 .006h-.042l-.11 -.012l-.077 -.014l-.108 -.032l-.126 -.056l-.095 -.056l-.089 -.067l-.06 -.056l-.073 -.082l-.064 -.089l-.022 -.036l-.032 -.06l-.044 -.103l-.016 -.049l-.026 -.11l-.01 -.061l-.004 -.049l-.002 -.068v-13a1 1 0 0 1 .5 -.866a10 10 0 0 1 9.412 -.314l.088 .044l.088 -.044z"
+										stroke-width="0"
+										fill="currentColor"
+									/>
+								</svg>
+							</Button>
+						</TooltipTrigger>
+						<TooltipContent>Start Reading</TooltipContent>
+					</Tooltip>
+					<Tooltip>
+						<TooltipTrigger asChild>
+							<Button
+								variant="outline"
+								onClick={() => {
+									moveToList(book, "saved")
+								}}
+								disabled={btnType === "saved"}
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="icon icon-tabler icon-tabler-books"
+									width="24"
+									height="24"
+									viewBox="0 0 24 24"
+									stroke-width="1.5"
+									stroke="currentColor"
+									fill="none"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+									<path d="M5 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+									<path d="M9 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+									<path d="M5 8h4" />
+									<path d="M9 16h4" />
+									<path d="M13.803 4.56l2.184 -.53c.562 -.135 1.133 .19 1.282 .732l3.695 13.418a1.02 1.02 0 0 1 -.634 1.219l-.133 .041l-2.184 .53c-.562 .135 -1.133 -.19 -1.282 -.732l-3.695 -13.418a1.02 1.02 0 0 1 .634 -1.219l.133 -.041z" />
+									<path d="M14 9l4 -1" />
+									<path d="M16 16l3.923 -.98" />
+								</svg>
+							</Button>
+						</TooltipTrigger>
+						<TooltipContent>To Read</TooltipContent>
+					</Tooltip>
+					<Tooltip>
+						<TooltipTrigger asChild>
+							<Button
+								variant="outline"
+								onClick={() => {
+									moveToList(book, "complete")
+								}}
+								disabled={btnType === "complete"}
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="icon icon-tabler icon-tabler-checks"
+									width="24"
+									height="24"
+									viewBox="0 0 24 24"
+									stroke-width="1.5"
+									stroke="currentColor"
+									fill="none"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+									<path d="M7 12l5 5l10 -10" />
+									<path d="M2 12l5 5m5 -5l5 -5" />
+								</svg>
+							</Button>
+						</TooltipTrigger>
+						<TooltipContent>Complete</TooltipContent>
+					</Tooltip>
 				</div>
 			</CardFooter>
 		</Card>

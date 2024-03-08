@@ -5,6 +5,7 @@ import { useStore } from "./store"
 import "./App.css" // Import app.css
 import { ThemeProvider } from "./components/theme-provider"
 import { Layout } from "./components/ui/Layout"
+import { TooltipProvider } from "@radix-ui/react-tooltip"
 
 const App = () => {
 	const { loadBooksFromLocalStorage } = useStore((state) => state)
@@ -16,7 +17,9 @@ const App = () => {
 			<Layout>
 				<div className="container mx-auto">
 					<BookSearch />
-					<BookList />
+					<TooltipProvider>
+						<BookList />
+					</TooltipProvider>
 				</div>
 			</Layout>
 		</ThemeProvider>
