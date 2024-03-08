@@ -4,14 +4,81 @@ export type Book = {
 	key: string
 	title: string
 	author_name: string[]
-	first_publish_year: string
-	number_of_pages_median: string | null
+	first_publish_year: number
+	number_of_pages_median: number | null
 	status: "complete" | "reading" | "saved"
 }
 
 interface BookState {
 	books: Book[]
 }
+
+const initialBooks: Book[] = [
+	{
+		key: "/works/OL262758W",
+		title: "The Hobbit",
+		author_name: ["J.R.R. Tolkien"],
+		first_publish_year: 1937,
+		number_of_pages_median: 312,
+		status: "complete",
+	},
+	{
+		key: "/works/OL27479W",
+		title: "The Two Towers",
+		author_name: ["J.R.R. Tolkien"],
+		first_publish_year: 1954,
+		number_of_pages_median: 440,
+		status: "reading",
+	},
+	{
+		key: "/works/OL27516W",
+		title: "The Return of the King",
+		author_name: ["J.R.R. Tolkien"],
+		first_publish_year: 1950,
+		number_of_pages_median: 482,
+		status: "reading",
+	},
+	{
+		key: "/works/OL14933414W",
+		title: "The Fellowship of the Ring",
+		author_name: ["J.R.R. Tolkien"],
+		first_publish_year: 1954,
+		number_of_pages_median: 496,
+		status: "saved",
+	},
+	{
+		key: "/works/OL8324629W",
+		title: "The Ethnic Cleansing of Palestine",
+		author_name: ["Ilan Pappé", "Luis Noriega"],
+		first_publish_year: 2006,
+		number_of_pages_median: 320,
+		status: "complete",
+	},
+	{
+		key: "/works/OL2733666W",
+		title: "The Holocaust Industry",
+		author_name: ["Norman G. Finkelstein"],
+		first_publish_year: 2000,
+		number_of_pages_median: 203,
+		status: "complete",
+	},
+	{
+		key: "/works/OL82548W",
+		title: "Harry Potter and the Order of the Phoenix",
+		author_name: ["J. K. Rowling"],
+		first_publish_year: 2003,
+		number_of_pages_median: 893,
+		status: "complete",
+	},
+	{
+		key: "/works/OL82563W",
+		title: "Harry Potter and the Philosopher's Stone",
+		author_name: ["J. K. Rowling"],
+		first_publish_year: 1997,
+		number_of_pages_median: 303,
+		status: "saved",
+	},
+]
 
 interface BookStore extends BookState {
 	addBook: (newBook: Book) => void
@@ -66,7 +133,7 @@ export const useStore = create<BookStore>((set) => ({
 		if (storedBooks) {
 			set({ books: JSON.parse(storedBooks) })
 		} else {
-			set({ books: [] })
+			set({ books: initialBooks })
 		}
 	},
 	reorderBooks: (

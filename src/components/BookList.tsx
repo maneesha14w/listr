@@ -84,20 +84,19 @@ export const BookList = () => {
 							>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
-									class="icon icon-tabler icon-tabler-book-filled"
 									width="24"
 									height="24"
 									viewBox="0 0 24 24"
-									stroke-width="1.5"
+									strokeWidth="1.5"
 									stroke="currentColor"
 									fill="none"
-									stroke-linecap="round"
-									stroke-linejoin="round"
+									strokeLinecap="round"
+									strokeLinejoin="round"
 								>
 									<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 									<path
 										d="M12.088 4.82a10 10 0 0 1 9.412 .314a1 1 0 0 1 .493 .748l.007 .118v13a1 1 0 0 1 -1.5 .866a8 8 0 0 0 -8 0a1 1 0 0 1 -1 0a8 8 0 0 0 -7.733 -.148l-.327 .18l-.103 .044l-.049 .016l-.11 .026l-.061 .01l-.117 .006h-.042l-.11 -.012l-.077 -.014l-.108 -.032l-.126 -.056l-.095 -.056l-.089 -.067l-.06 -.056l-.073 -.082l-.064 -.089l-.022 -.036l-.032 -.06l-.044 -.103l-.016 -.049l-.026 -.11l-.01 -.061l-.004 -.049l-.002 -.068v-13a1 1 0 0 1 .5 -.866a10 10 0 0 1 9.412 -.314l.088 .044l.088 -.044z"
-										stroke-width="0"
+										strokeWidth="0"
 										fill="currentColor"
 									/>
 								</svg>
@@ -116,15 +115,14 @@ export const BookList = () => {
 							>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
-									class="icon icon-tabler icon-tabler-books"
 									width="24"
 									height="24"
 									viewBox="0 0 24 24"
-									stroke-width="1.5"
+									strokeWidth="1.5"
 									stroke="currentColor"
 									fill="none"
-									stroke-linecap="round"
-									stroke-linejoin="round"
+									strokeLinecap="round"
+									strokeLinejoin="round"
 								>
 									<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 									<path d="M5 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
@@ -150,15 +148,14 @@ export const BookList = () => {
 							>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
-									class="icon icon-tabler icon-tabler-checks"
 									width="24"
 									height="24"
 									viewBox="0 0 24 24"
-									stroke-width="1.5"
+									strokeWidth="1.5"
 									stroke="currentColor"
 									fill="none"
-									stroke-linecap="round"
-									stroke-linejoin="round"
+									strokeLinecap="round"
+									strokeLinejoin="round"
 								>
 									<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 									<path d="M7 12l5 5l10 -10" />
@@ -219,7 +216,27 @@ export const BookList = () => {
 			<DragDropContext onDragEnd={onDragEnd}>
 				{books.filter((book) => book.status === "reading").length > 0 && (
 					<>
-						<h3 className="mb-2 text-xl font-semibold">Reading</h3>
+						<h3 className="mb-2 flex items-center gap-3 text-xl font-semibold">
+							Reading
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								strokeWidth="1.5"
+								stroke="currentColor"
+								fill="none"
+								strokeLinecap="round"
+								strokeLinejoin="round"
+							>
+								<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+								<path
+									d="M12.088 4.82a10 10 0 0 1 9.412 .314a1 1 0 0 1 .493 .748l.007 .118v13a1 1 0 0 1 -1.5 .866a8 8 0 0 0 -8 0a1 1 0 0 1 -1 0a8 8 0 0 0 -7.733 -.148l-.327 .18l-.103 .044l-.049 .016l-.11 .026l-.061 .01l-.117 .006h-.042l-.11 -.012l-.077 -.014l-.108 -.032l-.126 -.056l-.095 -.056l-.089 -.067l-.06 -.056l-.073 -.082l-.064 -.089l-.022 -.036l-.032 -.06l-.044 -.103l-.016 -.049l-.026 -.11l-.01 -.061l-.004 -.049l-.002 -.068v-13a1 1 0 0 1 .5 -.866a10 10 0 0 1 9.412 -.314l.088 .044l.088 -.044z"
+									strokeWidth="0"
+									fill="currentColor"
+								/>
+							</svg>
+						</h3>
 						{renderDraggableBookList("reading")}
 					</>
 				)}
@@ -227,14 +244,53 @@ export const BookList = () => {
 			<DragDropContext onDragEnd={onDragEnd}>
 				{books.filter((book) => book.status === "saved").length > 0 && (
 					<>
-						<h3 className="mb-2 text-xl font-semibold">To Read</h3>
+						<h3 className="mb-2 flex items-center gap-3 text-xl font-semibold">
+							To Read
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								strokeWidth="1.5"
+								stroke="currentColor"
+								fill="none"
+								strokeLinecap="round"
+								strokeLinejoin="round"
+							>
+								<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+								<path d="M5 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+								<path d="M9 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+								<path d="M5 8h4" />
+								<path d="M9 16h4" />
+								<path d="M13.803 4.56l2.184 -.53c.562 -.135 1.133 .19 1.282 .732l3.695 13.418a1.02 1.02 0 0 1 -.634 1.219l-.133 .041l-2.184 .53c-.562 .135 -1.133 -.19 -1.282 -.732l-3.695 -13.418a1.02 1.02 0 0 1 .634 -1.219l.133 -.041z" />
+								<path d="M14 9l4 -1" />
+								<path d="M16 16l3.923 -.98" />
+							</svg>
+						</h3>
 						<div>{renderDraggableBookList("saved")}</div>
 					</>
 				)}
 			</DragDropContext>
 			{books.filter((book) => book.status === "complete").length > 0 && (
 				<>
-					<h3 className="mb-2 text-xl font-semibold">Completed</h3>
+					<h3 className="mb-2 flex items-center gap-3 text-xl font-semibold">
+						Completed
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							strokeWidth="1.5"
+							stroke="currentColor"
+							fill="none"
+							strokeLinecap="round"
+							strokeLinejoin="round"
+						>
+							<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+							<path d="M7 12l5 5l10 -10" />
+							<path d="M2 12l5 5m5 -5l5 -5" />
+						</svg>
+					</h3>
 					<div>
 						{books
 							.filter((book) => book.status === "complete")
