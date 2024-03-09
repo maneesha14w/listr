@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { BookSearch } from "./components/BookSearch"
+import { BookSearch, SearchDialog } from "./components/BookSearch"
 import { BookList } from "./components/BookList"
 import { useStore } from "./store"
 import "./App.css" // Import app.css
@@ -16,7 +16,6 @@ const App = () => {
 		<ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
 			<Layout>
 				<div className="container mx-auto">
-					<BookSearch />
 					<TooltipProvider>
 						<BookList />
 					</TooltipProvider>

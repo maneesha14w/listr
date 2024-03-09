@@ -18,6 +18,7 @@ import {
 	TooltipContent,
 	TooltipTrigger,
 } from "@radix-ui/react-tooltip"
+import { BookSearch, SearchDialog } from "./BookSearch"
 
 export const BookList = () => {
 	const { books, moveBook, removeBook, reorderBooks } = useStore(
@@ -212,7 +213,14 @@ export const BookList = () => {
 
 	return (
 		<div className="mt-20 space-y-8 p-4">
-			<h2 className="mb-4 text-3xl font-bold">My Reading List</h2>
+			<div className="flex gap-2 max-sm:flex-col sm:items-center sm:justify-between">
+				<h2 className="mb-4 text-3xl font-bold">My Reading List</h2>
+				<div className="h-full">
+					<SearchDialog>
+						<BookSearch />
+					</SearchDialog>
+				</div>
+			</div>
 			<DragDropContext onDragEnd={onDragEnd}>
 				{books.filter((book) => book.status === "reading").length > 0 && (
 					<>

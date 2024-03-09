@@ -76,8 +76,8 @@ export const BookSearch = () => {
 
 	// JSX structure for rendering the component
 	return (
-		<div className="-m-1.5 mt-5 overflow-x-auto">
-			<div className="sm:dark: sm:dark:background  sm:divide-y sm:divide-gray-200 sm:rounded-2xl sm:dark:divide-gray-700 sm:dark:border-gray-700">
+		<div className="-m-1.5 mt-5 overflow-x-auto pt-5">
+			<div className="sm:dark: sm:dark:background    sm:rounded-2xl  ">
 				<div className="col flex flex-col items-center justify-center gap-5 pb-10 sm:flex-row">
 					<div className=" relative w-full sm:max-w-xs">
 						<Input
@@ -162,7 +162,7 @@ export const BookSearch = () => {
 							</TableBody>
 						</Table>
 					) : (
-						<div className="flex max-h-60 items-center justify-center p-16 text-gray-600 dark:text-gray-400">
+						<div className="flex max-h-60 items-center justify-center  p-16 text-gray-600 dark:text-gray-400">
 							Start your Search!
 						</div>
 					)}
@@ -204,5 +204,61 @@ export const BookSearch = () => {
 				)}
 			</div>
 		</div>
+	)
+}
+
+import { useMediaQuery } from "@/hooks/use-media-query"
+import {
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger,
+} from "@/components/ui/dialog"
+import {
+	Drawer,
+	DrawerClose,
+	DrawerContent,
+	DrawerDescription,
+	DrawerFooter,
+	DrawerHeader,
+	DrawerTitle,
+	DrawerTrigger,
+} from "@/components/ui/drawer"
+import { Label } from "@/components/ui/label"
+
+export function SearchDialog({ children }: { children: React.ReactNode }) {
+	const [open, setOpen] = React.useState(false)
+	const isDesktop = useMediaQuery("(min-width: 768px)")
+
+	if (isDesktop) {
+		return (
+			<Dialog open={open} onOpenChange={setOpen}>
+				<DialogTrigger asChild>
+					<Button variant="outline">Search for a Book</Button>
+				</DialogTrigger>
+				<DialogContent className="sm:max-w-xl">
+					<DialogHeader>
+						<DialogTitle>Search for a Book</DialogTitle>
+						{children}
+					</DialogHeader>
+				</DialogContent>
+			</Dialog>
+		)
+	}
+
+	return (
+		<Drawer open={open} onOpenChange={setOpen}>
+			<DrawerTrigger asChild>
+				<Button variant="outline">Search for a Book</Button>
+			</DrawerTrigger>
+			<DrawerContent>
+				<DrawerHeader className="text-left">
+					<DrawerTitle>Search for a Book</DrawerTitle>
+					{children}
+				</DrawerHeader>
+			</DrawerContent>
+		</Drawer>
 	)
 }
