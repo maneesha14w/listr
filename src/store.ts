@@ -92,6 +92,7 @@ interface BookStore extends BookState {
 	) => void
 }
 
+// zustand store for state functions and var
 export const useStore = create<BookStore>((set) => ({
 	books: [],
 	addBook: (newBook) =>
