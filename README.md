@@ -1,30 +1,50 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Listr
 
-Currently, two official plugins are available:
+A responsive application to track books in your library. Uses the Open Library Search API to add, edit and delete books from your collection. 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Demo
 
-- Configure the top-level `parserOptions` property like this:
+![Demo-gif](https://github.com/maneesha14w/listr/blob/main/listr.gif?raw=true)
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+## Features
+
+- Light/dark mode toggle
+- Search for any book on OpenLibrary API and save it to you library
+- Responsive
+- Has drag and drop functionality to order books to liking.
+- Books are persisted in Local storage.
+## Tech Stack
+
+React, Typescript, Zustand, shadcn/ui, TailwindCSS, Vite
+
+
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/maneesha14w/listr
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Go to the project directory
+
+```bash
+  cd listr
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the server
+
+```bash
+  npm run dev
+```
+
