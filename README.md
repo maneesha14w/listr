@@ -12,7 +12,7 @@ A responsive application to track books in your library. Uses the Open Library S
 ## Features
 
 - Light/dark mode toggle
-- Search for any book on OpenLibrary API and save it to you library
+- Search for any book on OpenLibrary API and save it to your library
 - Responsive
 - Has drag and drop functionality to order books to liking.
 - Books are persisted in Local storage.
